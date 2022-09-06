@@ -1,11 +1,12 @@
 import { SiEthereum } from "react-icons/si"
 import { BsInfoCircle } from 'react-icons/bs'
-import { useState } from "react"
+import React, { useState,useContext } from "react"
 import Loader from './Loader'
+import { TransactionsContext } from "../context/TransactionContext"
 
 const gridstyle = "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white"
 
-const Input = ({placeholder,type,value,name}) =>{
+const Input = ({placeholder,name,type,value,handleChange}) =>{
     return(
         <input 
             placeholder={placeholder}
@@ -13,29 +14,25 @@ const Input = ({placeholder,type,value,name}) =>{
             step='0.0001'
             value={value}
             onChange={(e)=>handleChange(e,name)}
-            className='my-2 w-full rounded-sm p-2 outline-none text-white text-sm white-glassmorphism'
+            className='my-2 w-full rounded-sm p-2 outline-none text-white text-sm blue-glassmorphism bg-transparent hover:bg-[#2546bd]'
          />
     )
 }
-
-const connectWallet = ()=>{
-    console.log('connected')
-}
-
-const handleSubmit = () =>{
-    console.log('submoited')
-}
-
-const handleChange = (e,name) =>{
-    console.log(e.target.value)
-    console.log(name)
-}
-
 
 
 
 const Welcome = () =>{
     const [isLoading, setIsLoading] = useState(false)
+    const { connectWallet, account,formData, setFormData ,handleChange, sendTransaction } = useContext(TransactionsContext)
+
+    const handleSubmit = (e) =>{
+        const {addressTo, amount,gif,messageTo} = formData;
+        e.preventDefault()
+        if(!addressTo || !amount || !gif || !messageTo) return
+        sendTransaction()
+    }
+
+    // console.log(connectWallet)
     return(
         <div className="flex w-full justify-center items-center">
             <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
@@ -53,9 +50,18 @@ const Welcome = () =>{
                         Make peer to peer transactions anytime, anywhere with anyone 
                     </p>
 
-                    <button type='button' onClick={connectWallet} className='flex flex-row justify-center items-center my-5 bg-[#2952e3] rounded-full p-3 cursor-pointer hover:bg-[#2546bd]'>
-                        <p className="text-white text-base font-semibold ">Connect Wallet</p>
-                    </button>
+                    {
+                        !account
+                        ?
+                        <button type='button' onClick={connectWallet} className='flex flex-row justify-center items-center my-5 bg-[#2952e3] rounded-full p-3 cursor-pointer hover:bg-[#2546bd]'>
+                            <p className="text-white text-base font-semibold ">Connect Wallet</p>
+                        </button>
+                        :
+                        <button type='button' className='flex flex-row justify-center items-center my-5 bg-[#2952e3] rounded-full p-3'>
+                            <p className="text-white text-base font-semibold ">Wallet Connected</p>
+                        </button>
+                    
+                    }
 
                     <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
                         <div className={`rounded-tl-2xl ${gridstyle}`}>Peer to Peer</div>
@@ -78,7 +84,19 @@ const Welcome = () =>{
                                     <BsInfoCircle></BsInfoCircle>
                                 </div>
                                 
-                                <p className="font-semibold text-sm">Address</p>
+                                {account
+                                    ?
+                                    <p className="font-semibold text-sm">
+                                         Meta Mask Account :<br></br>
+                                         {`${account.slice(0,5)} ... ${account.slice(account.length-5)}`}
+                                    </p>
+                                    :
+                                    <p className="font-semibold text-sm">
+                                         Meta Mask Account :<br></br>
+                                        _ _ _ _ _
+                                    </p>
+
+                                }
                             </div>
                         </div>
                     </div>
@@ -93,10 +111,8 @@ const Welcome = () =>{
                                 ?
                                 (<Loader></Loader>)
                                 :
-                                (<button type="button" onSubmit={handleSubmit} className='text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounded-full cursor-pointer'> Send Now</button>)}
+                                (<button type="button" onClick={handleSubmit} className='text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounded-full cursor-pointer hover:bg-[#2546bd]'> Send Now</button>)}
                     </div>
-                    
-
                 </div>
 
 

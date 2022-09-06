@@ -12,10 +12,12 @@ function App() {
       <div className='gradient-bg-welcome'>
         <Navbar></Navbar>
         <Welcome></Welcome>
-      </div>
         <Services></Services>
         <Transactions></Transactions>
         <Footer></Footer>
+      </div>
+        {/* <Services></Services> */}
+
     </div>
   );
 }
