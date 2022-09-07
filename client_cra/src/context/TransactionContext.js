@@ -8,6 +8,7 @@ export const TransactionsContext = React.createContext()
 // destructuring ethereum
 const { ethereum } = window;
 
+
 const getEthereumContract = () =>{
     const provider = new ethers.providers.Web3Provider(ethereum)
     const signer = provider.getSigner()
@@ -88,7 +89,8 @@ export const TransactionsProvider = ({children})=>{
             if(!ethereum) return alert('Meta mask not installed')
             const accounts = await ethereum.request({method:'eth_requestAccounts'})
             setAccount(accounts[0])
-            console.log(accounts[0])
+            alert(`wallet connected`)
+            window.location.reload()
         }catch(error){
             console.log(error)
             throw new Error('No eth object')
@@ -132,7 +134,7 @@ export const TransactionsProvider = ({children})=>{
     },[])
 
     return (
-        <TransactionsContext.Provider value={{connectWallet, account,formData,isTrxLoading,tranxes,setFormData,handleChange,sendTransaction}}>
+        <TransactionsContext.Provider value={{connectWallet, account,formData,isTrxLoading,tranxes,setFormData,handleChange,sendTransaction,ethereum}}>
             {children}
         </TransactionsContext.Provider>
     )

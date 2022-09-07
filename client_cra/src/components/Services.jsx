@@ -8,9 +8,9 @@ const ServiceCard = ({ color, title, icon, subtitle }) => (
       <div className={`w-10 h-10 rounded-full flex flex-col justify-center items-center ${color}`}>
         {icon}
       </div>
-      <div className="ml-5 flex flex-col flex-1">
-        <h3 className="mt-2 text-white text-lg">{title}</h3>
-        <p className="mt-1 text-white text-sm md:w-9/12">
+      <div className="flex flex-col flex-1 items-center text-ellipsis">
+        <p className="mt-2 text-center text-ellipsis text-white text-lg md:w-9/12">{title}</p>
+        <p className="mt-1 text-center text-ellipsis text-white text-sm md:w-9/12">
           {subtitle}
         </p>
       </div>
@@ -32,7 +32,7 @@ const Services = () =>{
                         </div>  
                     </h1>
                     <br></br>
-                    <div className="flex flex-col-3">
+                    <div className="grid grid-flow-row grid-row-3 justify-start items-center">
                     <ServiceCard
                         color="bg-[#2952E3]"
                         title="Security gurantee"

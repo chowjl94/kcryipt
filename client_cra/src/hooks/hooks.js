@@ -7,7 +7,6 @@ const useFetch = (keyword) =>{
     const fetchGif = async ()=>{
         try{
             if(keyword){
-                console.log(keyword)
                 const res =  await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${keyword.split(" ").join("")}&limit=1&offset=0&rating=g&lang=en`)
                 const {data} = await res.json()
                 setGif(data[0]?.images?.downsized_medium?.url)

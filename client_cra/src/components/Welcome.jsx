@@ -22,19 +22,23 @@ const Input = ({placeholder,name,type,value,handleChange}) =>{
 
 
 const Welcome = () =>{
-    const { connectWallet, account,formData ,handleChange, sendTransaction,isTrxLoading } = useContext(TransactionsContext)
+    const { connectWallet, account,formData ,handleChange, sendTransaction,isTrxLoading} = useContext(TransactionsContext)
     
     const handleSubmit = (e) =>{
+        if(!account){
+            alert('Please Connect Wallet') 
+            return
+        }
         const {addressTo,amount,gif,messageTo} = formData;
         e.preventDefault()
         if(!addressTo || !amount || !gif || !messageTo) {
-            alert('missing fields')
+            alert('confirm ?')
         }
-        console.log(formData)
         sendTransaction()
     }
 
     // console.log(connectWallet)
+    console.log(account)
     return(
         <div className="flex w-full justify-center items-center">
             <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
@@ -83,7 +87,18 @@ const Welcome = () =>{
                                     <div className="w-10 h-10 rounded-full border-2 border-black flex justify-center items-center ">
                                         <SiEthereum></SiEthereum>
                                     </div>
-                                    <BsInfoCircle></BsInfoCircle>
+                                    {
+                                        account
+                                        ?
+                                        <a href={`https://rinkeby.etherscan.io/address/${account}`} target="_blank" rel="noreferrer">
+                                            <BsInfoCircle></BsInfoCircle>
+                                        </a>
+                                        :
+                                        
+                                        <BsInfoCircle></BsInfoCircle>
+                                    
+                                    }
+                                    
                                 </div>
                                 
                                 {account

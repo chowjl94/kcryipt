@@ -1,7 +1,9 @@
 import { HiMenuAlt4 } from 'react-icons/hi'
 import { AiOutlineClose } from 'react-icons/ai'
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
 import logo from '../images/logo.png'
+import { TransactionsContext } from "../context/TransactionContext"
+
 
 const Item = ({title, classProps})=>{
     return(
@@ -23,9 +25,9 @@ const Navbar = () =>{
                     <Item key={i+index} title={i}></Item>
                 ))}
 
-                <li className='bg-[#2952e3] py-2 px-7 mx-4 rounded cursor-pointer hover:bg-[#2546bd]'>
+                {/* <li className='bg-[#2952e3] py-2 px-7 mx-4 rounded cursor-pointer hover:bg-[#2546bd]'>
                     Login
-                </li>
+                </li> */}
             </ul>
 
             <div className='flex relative'>
