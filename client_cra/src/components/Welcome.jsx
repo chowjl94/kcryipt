@@ -1,6 +1,6 @@
 import { SiEthereum } from "react-icons/si"
 import { BsInfoCircle } from 'react-icons/bs'
-import React, { useState,useContext } from "react"
+import React, { useContext } from "react"
 import Loader from './Loader'
 import { TransactionsContext } from "../context/TransactionContext"
 
@@ -22,13 +22,15 @@ const Input = ({placeholder,name,type,value,handleChange}) =>{
 
 
 const Welcome = () =>{
-    const [isLoading, setIsLoading] = useState(false)
-    const { connectWallet, account,formData, setFormData ,handleChange, sendTransaction } = useContext(TransactionsContext)
-
+    const { connectWallet, account,formData ,handleChange, sendTransaction,isTrxLoading } = useContext(TransactionsContext)
+    
     const handleSubmit = (e) =>{
-        const {addressTo, amount,gif,messageTo} = formData;
+        const {addressTo,amount,gif,messageTo} = formData;
         e.preventDefault()
-        if(!addressTo || !amount || !gif || !messageTo) return
+        if(!addressTo || !amount || !gif || !messageTo) {
+            alert('missing fields')
+        }
+        console.log(formData)
         sendTransaction()
     }
 
@@ -107,7 +109,7 @@ const Welcome = () =>{
                         <Input placeholder="Gif" name='gif' type='text' handleChange={handleChange}/> 
                         <Input placeholder="Message To" name='messageTo' type='text' handleChange={handleChange}/> 
                         <div className="h-[2px] w-full bg-gray-400 my-2"></div>
-                        {isLoading
+                        {isTrxLoading
                                 ?
                                 (<Loader></Loader>)
                                 :

@@ -12,7 +12,6 @@ const getEthereumContract = () =>{
     const provider = new ethers.providers.Web3Provider(ethereum)
     const signer = provider.getSigner()
     const TransactionsContract = new ethers.Contract(contractAddress,contractABI, signer)
-    console.log({provider,signer, TransactionsContract})
     return TransactionsContract
 
 }
@@ -24,19 +23,21 @@ export const TransactionsProvider = ({children})=>{
     const [transactionCount, setTransactionCount] = useState(localStorage.getItem('transactionCount'))
     const [account , setAccount]= useState('')
     const [formData, setFormData] = useState({addressTo:'',amount:'',gif:'',messageTo:''})
+    const [tranxes, setTranxes] = useState([])
 
     const handleChange = (e,name) =>{
         setFormData((prevState)=>({...prevState,[name]:e.target.value}))
-
+        console.log(e.target.value)
     }
 
     const checkConnect = async () =>{
+        console.log('checking for connection')
         try{
             if(!ethereum) return alert('Meta mask not installed')
             const accounts = await ethereum.request({method:'eth_accounts'})
-            if(account.length !== 0){
+            if(accounts.length){
                 setAccount(accounts[0])
-                //get all transaction
+                getTransactions()
                 console.log('account connected')
             }else{
                 console.log('No account found')
@@ -46,6 +47,40 @@ export const TransactionsProvider = ({children})=>{
             throw new Error('No eth object')
         }
 
+    }
+
+    const checkTransactions = async ()=>{
+        console.log('checking Transactions')
+        try{
+            const transactionContract = getEthereumContract()
+            const trxCount = await transactionContract.getTransactionsCount()
+            localStorage.setItem('transactioncount',trxCount)
+        }catch(error){
+            console.log(error)
+            throw new Error('No eth object')
+
+        }
+    }
+
+    const getTransactions = async ()=>{
+        try{
+            if(!ethereum) return alert('Meta mask not installed')
+            const transactionContract = getEthereumContract()
+            const trxes = await transactionContract.getTransactions()
+            // console.log(trxes)
+            const trxData = trxes.map((t)=>({
+                addressTo: t.receiver,
+                addressFrom:t.sender,
+                timestamp: new Date(t.timestamp * 1000).toLocaleString(),
+                message:t.keyword,
+                gif:t.keyword,
+                amount: parseInt(t.amount)/(10**18)
+            }))
+            // console.log(trxData)
+            setTranxes(trxData)
+        }catch(error){
+            console.log(error)
+        }
     }
 
     const connectWallet = async() =>{
@@ -93,10 +128,11 @@ export const TransactionsProvider = ({children})=>{
 
     useEffect(()=>{
         checkConnect()
+        checkTransactions()
     },[])
 
     return (
-        <TransactionsContext.Provider value={{connectWallet, account,formData,setFormData,handleChange,sendTransaction}}>
+        <TransactionsContext.Provider value={{connectWallet, account,formData,isTrxLoading,tranxes,setFormData,handleChange,sendTransaction}}>
             {children}
         </TransactionsContext.Provider>
     )
