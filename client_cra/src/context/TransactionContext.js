@@ -21,6 +21,7 @@ const getEthereumContract = () =>{
 
 export const TransactionsProvider = ({children})=>{
     const [isTrxLoading, setisTrxLoading] = useState(false)
+    // eslint-disable-next-line no-unused-vars
     const [transactionCount, setTransactionCount] = useState(localStorage.getItem('transactionCount'))
     const [account , setAccount]= useState('')
     const [formData, setFormData] = useState({addressTo:'',amount:'',gif:'',messageTo:''})
@@ -131,6 +132,7 @@ export const TransactionsProvider = ({children})=>{
     useEffect(()=>{
         checkConnect()
         checkTransactions()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return (
