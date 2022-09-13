@@ -3,14 +3,16 @@ import { BsShieldFillCheck } from "react-icons/bs";
 import { BiSearchAlt } from "react-icons/bi";
 import { BsGlobe2 } from "react-icons/bs";
 
-const ServiceCard = ({ color, title, icon, subtitle }) => (
+const ServiceCard = ({ color, title, icon, subtitle,instructions }) => (
     <div className="flex flex-col justify-start items-center white-glassmorphism p-3 m-2 hover:shadow-xl">
       <div className={`w-10 h-10 rounded-full flex flex-col justify-center items-center ${color}`}>
         {icon}
       </div>
       <div className="flex flex-col flex-1 items-center text-ellipsis">
-        <p className="mt-2 text-center text-ellipsis text-white text-lg md:w-9/12">{title}</p>
-        <p className="mt-1 text-center text-ellipsis text-white text-sm md:w-9/12">
+        <h3 className="mt-2 text-center text-ellipsis text-white lg md:w-9/12">{title}</h3>
+        </div>
+        <div className="flex flex-col flex-1 items-center text-ellipsis">
+        <p className="mt-3 text-center text-ellipsis text-white text-sm md:w-9/12">
           {subtitle}
         </p>
       </div>
@@ -28,11 +30,10 @@ const Services = () =>{
                         <div>
                             Our Services
                             <br></br>
-                            
                         </div>  
                     </h1>
                     <br></br>
-                    <div className="grid grid-flow-row grid-row-3 justify-start items-center">
+                    <div className="grid grid-cols-3 px-3 py-3 gap-3">
                     <ServiceCard
                         color="bg-[#2952E3]"
                         title="Security gurantee"
@@ -42,18 +43,17 @@ const Services = () =>{
 
                     <ServiceCard
                         color="bg-[#e32929]"
-                        title="Fast Transactions"
+                        title="Fast Transactions on Goerli TestNet"
                         icon={<BiSearchAlt fontSize={21} className="text-white" />}
                         subtitle="Fast transactions with low wait time"
                         />
                         
                     <ServiceCard
                         color="bg-[#2fe329]"
-                        title="Anywhere, Anytime, Anyone"
+                        title="Anywhere, Anytime,Anyone"
                         icon={<BsGlobe2 fontSize={21} className="text-white" />}
                         subtitle="Make transactions 24/7 anywhere, with anyone"
                         />
-
                     </div>
 
                         

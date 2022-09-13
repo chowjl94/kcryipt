@@ -2,6 +2,7 @@ import Welcome from './Welcome';
 import Services from './Services';
 import Transactions from './Transactions';
 import Footer from './Footer';
+import Information from './Information';
 
 
 const Home = () =>{
@@ -9,8 +10,9 @@ const Home = () =>{
     return(
         <>
             <Welcome></Welcome>
-            <Services></Services>
             <Transactions></Transactions>
+            <Services></Services>
+            <Information></Information>
             <Footer></Footer>
         </>
 
