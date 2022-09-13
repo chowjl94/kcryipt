@@ -63,9 +63,9 @@ const Welcome = () =>{
                             <p className="text-white text-base font-semibold ">Connect Wallet</p>
                         </button>
                         :
-                        <button type='button' className='flex flex-row justify-center items-center my-5 bg-[#2952e3] rounded-full p-3'>
+                        <div className='hover:default flex flex-row justify-center items-center my-5 bg-[#2952e3] rounded-full p-3'>
                             <p className="text-white text-base font-semibold ">Wallet Connected</p>
-                        </button>
+                        </div>
                     
                     }
 
@@ -90,7 +90,7 @@ const Welcome = () =>{
                                     {
                                         account
                                         ?
-                                        <a href={`https://rinkeby.etherscan.io/address/${account}`} target="_blank" rel="noreferrer">
+                                        <a href={`https://goerli.etherscan.io/address/${account}`} target="_blank" rel="noreferrer">
                                             <BsInfoCircle></BsInfoCircle>
                                         </a>
                                         :

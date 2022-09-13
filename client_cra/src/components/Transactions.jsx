@@ -16,11 +16,11 @@ const TransactionCard = ({gif, message,timestamp,addressFrom, amount, addressTo 
         </div>
       <div className="ml-2 flex flex-col items-center w-full mt-3">
         <div className="display-flex justify-start w-full mb-6 p-2">
-        <a href={`https://rinkeby.etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
+        <a href={`https://goerli.etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
             <p className="text-white text-base hover:underline">From : {`${addressFrom.slice(0,5)} ... ${addressFrom.slice(addressFrom.length-5)}`}</p>
           </a>
 
-          <a href={`https://rinkeby.etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
+          <a href={`https://goerli.etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
             <p className="text-white text-base hover:underline">To : {`${addressTo.slice(0,5)} ... ${addressTo.slice(addressTo.length-5)}`}</p>
           </a>
 

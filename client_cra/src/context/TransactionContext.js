@@ -120,9 +120,9 @@ export const TransactionsProvider = ({children})=>{
             await transactionID.wait()
             setisTrxLoading(false)
             console.log(`Transaction Hash : ${transactionID.hash} is finished` )
-
             const trxCount = await transactionContract.getTransactionsCount()
             setTransactionCount(trxCount.toNumber())
+            window.location.reload()
         }catch(error){
             console.log(error)
             throw new Error('No eth object')
