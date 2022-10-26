@@ -69,7 +69,7 @@ export const TransactionsProvider = ({children})=>{
             if(!ethereum) return alert('Meta mask not installed')
             const transactionContract = getEthereumContract()
             const trxes = await transactionContract.getTransactions()
-            // console.log(trxes)
+            console.log(trxes)
             const trxData = trxes.map((t)=>({
                 addressTo: t.receiver,
                 addressFrom:t.sender,
