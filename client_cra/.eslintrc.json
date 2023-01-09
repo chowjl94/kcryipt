@@ -1,0 +1,18 @@
+{
+  "extends": ["eslint:recommended", "prettier"],
+  "rules": {
+    "semi-spacing":"warn",
+    "semi":"warn",
+    "no-unused-vars":"warn"
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "es7": true
+    }
+  
+}
+
+
+
